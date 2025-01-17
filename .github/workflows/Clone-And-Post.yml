@@ -8,7 +8,7 @@ on:
         required: true
         default: 'https://gitlab.com/kinguser981/neutron-clang-18.git'
       DEVICE_BRANCH:
-        description: 'your device branch name (Optional)'
+        description: 'branch name (Optional)'
         required: true
         default: 'Neutron-18'
       GITHUB_TOKEN:
@@ -18,21 +18,11 @@ on:
       EMPTY_REPO:
         description: 'your empty repo name on github (Optional)'
         required: true
-        default: 'android_device_samsung_a05s.git'
+        default: 'clone-and-post.git'
       COMMIT_MESSAGE:
         description: 'your commit message (Optional)'
         required: true
-        default: 'TWRP device tree'
-      PUSH_GITHUB:
-        description: 'Push to GitHub Repository.'
-        type: boolean
-        required: true
-        default: false
-      RELEASE_FILE:
-        description: 'Upload file to GitHub Release too.'
-        type: boolean
-        required: true
-        default: true
+        default: 'any message'
 
 jobs:
   build:
@@ -52,11 +42,11 @@ jobs:
         git clone ${{ github.event.inputs.REPO_ADDY }}
 
     - name: Push to GitHub
-      if: github.event.inputs.PUSH_GITHUB == 'true'
       run: |
           git config --global user.email "Samuel Kendall"
           git config --global user.name "kinguser981@gmail.com"
           cd *
+          rm -rf .git
           git init
           git add .
           git commit -m "${{ github.event.inputs.COMMIT_MESSAGE }}"
