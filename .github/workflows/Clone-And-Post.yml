@@ -45,6 +45,7 @@ jobs:
       run: |
           git config --global user.email "Samuel Kendall"
           git config --global user.name "kinguser981@gmail.com"
+          ls
           cd *
           rm -rf .git
           git init
