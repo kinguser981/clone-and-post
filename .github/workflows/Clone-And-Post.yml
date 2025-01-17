@@ -37,7 +37,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     
-    - name: Downloading the repository!
+    - name: Downloading the Repository
       run: |
         git config --global user.email "Samuel Kendall"
         git config --global user.name "kinguser981@gmail.com"
