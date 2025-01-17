@@ -1,0 +1,66 @@
+name: Clone-And-Post
+
+on:
+  workflow_dispatch:
+    inputs:
+      REPO_ADDY:
+        description: 'repo link'
+        required: true
+        default: 'https://gitlab.com/kinguser981/neutron-clang-18.git'
+      DEVICE_BRANCH:
+        description: 'your device branch name (Optional)'
+        required: true
+        default: 'Neutron-18'
+      GITHUB_TOKEN:
+        description: 'your github Access token (Optional)'
+        required: true
+        default: 'XXXXXXXXXXXXXXXXXXXXXXXXXX'
+      EMPTY_REPO:
+        description: 'your empty repo name on github (Optional)'
+        required: true
+        default: 'android_device_samsung_a05s.git'
+      COMMIT_MESSAGE:
+        description: 'your commit message (Optional)'
+        required: true
+        default: 'TWRP device tree'
+      PUSH_GITHUB:
+        description: 'Push to GitHub Repository.'
+        type: boolean
+        required: true
+        default: false
+      RELEASE_FILE:
+        description: 'Upload file to GitHub Release too.'
+        type: boolean
+        required: true
+        default: true
+
+jobs:
+  build:
+    name: Cloning by ${{ github.actor }}
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Downloading 
+      run: |
+        git clone ${{ github.event.inputs.REPO_ADDY }}
+
+    - name: Push to GitHub
+      if: github.event.inputs.PUSH_GITHUB == 'true'
+      run: |
+          git config --global user.email "Samuel Kendall"
+          git config --global user.name "kinguser981@gmail.com"
+          cd *
+          git init
+          git add .
+          git commit -m "${{ github.event.inputs.COMMIT_MESSAGE }}"
+          git branch -M ${{ github.event.inputs.DEVICE_BRANCH }}
+          git remote add origin git@github.com:${{ github.actor }}/${{ github.event.inputs.EMPTY_REPO }}
+          git remote set-url origin https://${{ github.actor }}:${{ github.event.inputs.GITHUB_TOKEN }}@github.com/${{ github.actor }}/${{ github.event.inputs.EMPTY_REPO }}
+          git push -u origin ${{ github.event.inputs.DEVICE_BRANCH }}
