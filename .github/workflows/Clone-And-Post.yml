@@ -18,7 +18,7 @@ on:
       EMPTY_REPO:
         description: 'your empty repo name on github (Optional)'
         required: true
-        default: 'clone-and-post.git'
+        default: 'Neutron-18.git'
       COMMIT_MESSAGE:
         description: 'your commit message (Optional)'
         required: true
