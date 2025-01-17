@@ -37,16 +37,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     
-    - name: Downloading 
+    - name: Downloading the repository!
       run: |
+        git config --global user.email "Samuel Kendall"
+        git config --global user.name "kinguser981@gmail.com"
+        mkdir repo
+        cd repo
         git clone ${{ github.event.inputs.REPO_ADDY }}
 
     - name: Push to GitHub
       run: |
-          git config --global user.email "Samuel Kendall"
-          git config --global user.name "kinguser981@gmail.com"
-          ls
-          cd *
+          cd repo/*
           rm -rf .git
           git init
           git add .
