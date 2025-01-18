@@ -10,7 +10,7 @@ on:
       DEVICE_BRANCH:
         description: 'branch name (Optional)'
         required: true
-        default: 'Neutron-18'
+        default: 'master'
       GITHUB_TOKEN:
         description: 'your github Access token (Optional)'
         required: true
@@ -18,11 +18,11 @@ on:
       EMPTY_REPO:
         description: 'your empty repo name on github (Optional)'
         required: true
-        default: 'Neutron-18.git'
+        default: 'new-empty-repo.git'
       COMMIT_MESSAGE:
         description: 'your commit message (Optional)'
         required: true
-        default: 'any message'
+        default: 'any commit message'
 
 jobs:
   build:
